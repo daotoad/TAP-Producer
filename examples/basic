@@ -1,0 +1,39 @@
+#!/bin/env perl
+use strict;
+use warnings;
+
+use lib 'lib';
+use TAP::Producer;
+
+my $tap = TAP::Producer->new();
+
+$tap->plan(6);
+$tap->diag(
+   "Something happened\n",
+    qw/ I have no idea what /,
+   "\n",
+);
+$tap->pass( "Pass this" );
+$tap->fail( { directive => 'TODO' } );
+
+$tap->begin_subtest("TODO Tests", { directive => 'TODO', explanation => 'testing todo on subtests' } );
+$tap->ok( 1, { directive => 'TODO'} );
+$tap->ok( 0, { directive => 'TODO'} );
+$tap->ok( 1, { directive => 'TODO'} );
+$tap->ok( 1, { directive => 'TODO'} );
+$tap->done_testing();
+
+
+$tap->ok( 0, 'this is a todo', { directive => 'TODO', explanation => 'I hate cheese'} );
+$tap->ok( 0, 'this is a skip', { directive => 'SKIP', explanation => 'I like cheese'} );
+
+$tap->begin_subtest("My name is george");
+$tap->ok(1, "lalalal");
+#$tap->bail_out();
+$tap->diag(" subtest is begun. ");
+
+$tap->done_testing(1);
+$tap->diag(" subtest is done. ");
+$tap->done_testing();
+
+
