@@ -5,6 +5,8 @@ use warnings;
 use constant;
 use Carp      qw< croak >;
 
+use TAP::Producer::Context;
+
 my $singleton;
 sub singleton {
     my ($class, $opt) = @_;
@@ -28,6 +30,12 @@ sub plan {
     $self->[0]->emit_plan( { %$arg, %$opt } );
 
     return;
+}
+
+sub test_count {
+    my ($self) = @_;
+
+    return $self->[0]->test_count();
 }
 
 sub begin_subtest {

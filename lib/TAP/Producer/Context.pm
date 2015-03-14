@@ -4,6 +4,11 @@ use strict;
 use warnings;
 use Carp        qw< croak >;
 use Time::HiRes qw<>;
+use IO::Handle;
+
+use TAP::Producer::Diagnostic;
+use TAP::Producer::Plan;
+use TAP::Producer::Test;
 
 use constant {
     _CONTEXT        =>  0, # ref to parent test context.
@@ -61,6 +66,7 @@ sub handle      { $_[0]->[_HANDLE]      };
 sub description { $_[0]->[_DESC]        };
 sub directive   { $_[0]->[_DIRECTIVE]   };
 sub explanation { $_[0]->[_EXPLANATION] };
+sub test_count  { $_[0]->[_TEST_COUNT]  };
 
 sub emit_bail_out {
     my ($self, $opt) = @_;

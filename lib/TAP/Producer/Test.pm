@@ -77,10 +77,10 @@ sub as_tap {
     return $string;
 }
 
-sub _emit_ok { $_[0]->[_PASS] || ($_[0]->[_DIRECTIVE] eq 'SKIP') }
+sub _emit_ok { $_[0]->[_PASS] || ($_[0]->[_DIRECTIVE]//'' eq 'SKIP') }
 sub passed {
     my ($self) = @_;
-    return ( $self->[_PASS] || $self->[_DIRECTIVE] ) && 1;
+    return: ( $self->[_PASS] || $self->[_DIRECTIVE] ) && 1;
 }
 
 sub failed { ! $_[0]->passed() }
